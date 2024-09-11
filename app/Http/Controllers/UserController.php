@@ -2,18 +2,26 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Resources\ExpenseResource;
+use App\Models\User;
 use Illuminate\Http\Request;
-use App\Models\Expense;
+use App\Http\Resources\UserResource;
 
-class ExpenseController extends Controller
+class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return ExpenseResource::collection(Expense::with('user')->get());
+        return User::select('id', 'name as userName', 'email', 'email_verified_at')->get();
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
+    {
+        //
     }
 
     /**
@@ -28,6 +36,14 @@ class ExpenseController extends Controller
      * Display the specified resource.
      */
     public function show(string $id)
+    {
+        return new UserResource(User::where('id', $id)->first());
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(string $id)
     {
         //
     }

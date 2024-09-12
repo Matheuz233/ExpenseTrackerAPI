@@ -39,9 +39,9 @@ class ExpenseController extends Controller
         $created = Expense::create($validator->validated());
 
         if ($created) {
-            return $this->response('Gasto adicionado com sucesso', 200, new ExpenseResource($created->load('user')));
+            return $this->response('Gasto Adicionado com Sucesso', 200, new ExpenseResource($created->load('user')));
         }
-        return $this->response('Gasto não adicionado', 400);
+        return $this->response('Gasto Não Adicionado', 400);
     }
 
     /**
@@ -49,7 +49,8 @@ class ExpenseController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $expense = Expense::find($id);
+        return new ExpenseResource($expense);
     }
 
     /**
@@ -57,14 +58,47 @@ class ExpenseController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'user_id' => 'required',
+            'category' => 'required',
+            'date_spent' => 'nullable|date_format:Y-m-d H:i:s',
+            'description' => 'nullable',
+            'value' => 'required|numeric',
+        ]);
+
+        if ($validator->fails()) {
+            return $this->error('Dados Inválidos', 422, $validator->errors());
+        }
+
+        $validated = $validator->validated();
+
+        $expense = Expense::find($id);
+
+        $updated = $expense->update([
+            'user_id' => $validated['user_id'],
+            'category' => $validated['category'],
+            'description' => $validated['description'],
+            'value' => $validated['value'],
+            'date_spent' => $validated['date_spent'] !== 0 ? $validated['date_spent'] : null,
+        ]);
+
+        if  ($updated) {
+            return $this->response('Gasto Atualizado com Sucesso', 200, new ExpenseResource($expense->load('user')));
+        }
+        return $this->response('Gasto Não Atualizado', 400);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(string $id) 
     {
-        //
+        $expense = Expense::find($id);
+        $deleted = $expense->delete();
+
+        if ($deleted) {
+            return $this->response('Gasto Deletado com Sucesso', 200);
+        }
+        return $this->response('Gasto Não Deletado', 400);
     }
 }

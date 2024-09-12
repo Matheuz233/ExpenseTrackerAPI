@@ -11,7 +11,10 @@ use App\Http\Controllers\ExpenseController;
 Route::prefix("")->group(function () {
   Route::get("/users", [UserController::class, 'index']);
   Route::get("/users/{user}", [UserController::class, 'show']);
+  Route::apiResource("expenses", UserController::class);
   Route::get("/expenses", [ExpenseController::class, 'index']);
-  Route::get("/expenses/{user}", [ExpenseController::class, 'show']);
+  Route::get("/expenses/{id}", [ExpenseController::class, 'show']);
   Route::post("/expenses", [ExpenseController::class, 'store']);
+  Route::put("/expenses/{id}", [ExpenseController::class, 'update']);
+  Route::delete("/expenses/{id}", [ExpenseController::class, 'destroy']);
 });

@@ -11,7 +11,7 @@ use App\Http\Controllers\ExpenseController;
 Route::prefix("")->group(function () {
   Route::get("/users", [UserController::class, 'index']);
   Route::get("/users/{user}", [UserController::class, 'show']);
-  Route::apiResource("expenses", UserController::class);
+  // Route::apiResource("expenses", UserController::class);
   Route::get("/expenses", [ExpenseController::class, 'index']);
   Route::get("/expenses/{id}", [ExpenseController::class, 'show']);
   Route::post("/expenses", [ExpenseController::class, 'store']);

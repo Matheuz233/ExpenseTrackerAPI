@@ -13,5 +13,5 @@ Route::prefix("")->group(function () {
   Route::get("/users/{user}", [UserController::class, 'show']);
   Route::get("/expenses", [ExpenseController::class, 'index']);
   Route::get("/expenses/{user}", [ExpenseController::class, 'show']);
-  Route::get("/expenses/{user}", [ExpenseController::class, 'store']);
+  Route::post("/expenses", [ExpenseController::class, 'store']);
 });

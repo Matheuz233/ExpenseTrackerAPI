@@ -15,9 +15,9 @@ return new class extends Migration {
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
             $table->string('category');
-            $table->string('description');
+            $table->text('description')->nullable();
             $table->decimal('value', 10, 2);
-            $table->dateTime('date_spent'); 
+            $table->dateTime('date_spent')->nullable();
             $table->timestamps(); 
         });
     }

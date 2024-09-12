@@ -9,6 +9,14 @@ class Expense extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'user_id',
+        'category',
+        'date_spent',
+        'description',
+        'value',
+    ];
+    
     public function user() {
         return $this->belongsTo(User::class);   
     }

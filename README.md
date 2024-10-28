@@ -1,66 +1,125 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# ExpenseTrackerAPI 💼
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+## Descrição 📝
+A **ExpenseTrackerAPI** é uma API desenvolvida utilizando o framework Laravel, com o objetivo de gerenciar despesas pessoais, oferecendo funcionalidades como autenticação de usuários, operações CRUD de gastos e filtragem dos dados cadastrados.
 
-## About Laravel
+## Funcionalidades da API ⚙️
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+### 1. **Autenticação de Usuários** 🔐
+   - Login para autenticar e gerar um token de sessão utilizando Sanctum.
+   - Logout para invalidar o token e encerrar a sessão do usuário.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+### 2. **CRUD de Gastos** 💸
+   - **Create**: Adicionar novos gastos (descrição, valor, data, categoria).
+   - **Read**: Listar todos os gastos ou buscar detalhes de um gasto específico.
+   - **Update**: Atualizar informações de um gasto.
+   - **Delete**: Excluir um gasto do sistema.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+### 3. **Filtragem de Dados** 🔍
+   - Filtrar os gastos por categoria, data ou valor.
+   - Realizar buscas personalizadas com múltiplos critérios.
 
-## Learning Laravel
+## Instalação do Projeto 🛠️
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+### Requisitos 🧩
+- PHP 8.1 ou superior.
+- Composer.
+- Laravel 9.x.
+- Banco de dados MySQL ou equivalente.
+- Sanctum para autenticação.
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+### Passo a Passo de Instalação 🚀
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+#### 1. Clonar o Repositório 🖥️
+```bash
+git clone https://github.com/Matheuz233/ExpenseTrackerAPI.git
+cd ExpenseTrackerAPI
+```
 
-## Laravel Sponsors
+#### 2. Instalar Dependências 📦
+```bash
+composer install
+```
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+#### 3. Configurar o Arquivo `.env` 🔧
+Duplique o arquivo `.env.example` e renomeie para `.env`. Ajuste as variáveis de ambiente como o banco de dados:
+```bash
+cp .env.example .env
+```
 
-### Premium Partners
+Configure as informações de banco de dados no arquivo `.env`:
+```plaintext
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=expense_tracker
+DB_USERNAME=seu_usuario
+DB_PASSWORD=sua_senha
+```
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+#### 4. Gerar Chave da Aplicação 🔑
+```bash
+php artisan key:generate
+```
 
-## Contributing
+#### 5. Rodar as Migrações e Seeders 🌱
+Execute as migrações para criar as tabelas no banco de dados e preencha o banco com dados de teste utilizando as factories configuradas:
+```bash
+php artisan migrate --seed
+```
+Isso rodará as migrations e executará os seeders que irão popular o banco de dados com dados iniciais.
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+### Senha dos Usuários Seedados 🔐
+- Todas as senhas dos usuários seedados no banco de dados são definidas como `"password"`.
 
-## Code of Conduct
+#### 6. Publicar a Configuração do Sanctum ⚙️
+```bash
+php artisan vendor:publish --provider="Laravel\Sanctum\SanctumServiceProvider"
+php artisan migrate
+```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+#### 7. Iniciar o Servidor 🌐
+```bash
+php artisan serve
+```
+A aplicação estará disponível em `http://localhost:8000`.
 
-## Security Vulnerabilities
+## Endpoints 🔗
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+### Autenticação 🔑
+- **POST /login**: Realiza o login do usuário e retorna um token de acesso.
+- **POST /logout**: Faz o logout do usuário e invalida o token de sessão.
 
-## License
+### Usuários 👥
+- **GET /users**: Retorna uma lista de todos os usuários cadastrados (requer autenticação).
+- **GET /users/{user}**: Exibe os detalhes de um usuário específico (requer autenticação).
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+### Gastos (Expenses) 💳
+- **GET /expenses**: Retorna a lista de todos os gastos cadastrados (requer autenticação).
+- **GET /expenses/{id}**: Exibe os detalhes de um gasto específico pelo ID (requer autenticação).
+- **POST /expenses**: Cria um novo gasto (requer autenticação).
+- **PUT /expenses/{id}**: Atualiza um gasto existente (requer autenticação).
+- **DELETE /expenses/{id}**: Exclui um gasto do sistema (requer autenticação).
+
+### Filtragem de Gastos 🎯
+
+| Parâmetro       | Tipo      | Descrição                                                                                  | Exemplo                      |
+|------------------|-----------|------------------------------------------------------------------------------------------|------------------------------|
+| `value[gt]`      | `float`   | Filtra despesas onde o valor é maior que o especificado.                               | `?value[gt]=100`            |
+| `value[lt]`      | `float`   | Filtra despesas onde o valor é menor que o especificado.                               | `?value[lt]=500`            |
+| `value[gte]`     | `float`   | Filtra despesas onde o valor é maior ou igual ao especificado.                         | `?value[gte]=200`           |
+| `value[lte]`     | `float`   | Filtra despesas onde o valor é menor ou igual ao especificado.                         | `?value[lte]=300`           |
+| `value[eq]`      | `float`   | Filtra despesas onde o valor é igual ao especificado.                                   | `?value[eq]=150`            |
+| `value[ne]`      | `float`   | Filtra despesas onde o valor não é igual ao especificado.                               | `?value[ne]=50`             |
+| `category[eq]`   | `string`  | Filtra despesas que pertencem à categoria especificada.                                 | `?category[eq]=alimentacao` |
+| `category[ne]`   | `string`  | Filtra despesas que não pertencem à categoria especificada.                             | `?category[ne]=transporte`  |
+| `spent_date[gt]` | `date`    | Filtra despesas onde a data gasta é maior que a especificada.                          | `?spent_date[gt]=2024-10-01`|
+| `spent_date[lt]` | `date`    | Filtra despesas onde a data gasta é menor que a especificada.                          | `?spent_date[lt]=2024-10-31`|
+| `spent_date[gte]`| `date`    | Filtra despesas onde a data gasta é maior ou igual à especificada.                     | `?spent_date[gte]=2024-10-01`|
+| `spent_date[lte]`| `date`    | Filtra despesas onde a data gasta é menor ou igual à especificada.                     | `?spent_date[lte]=2024-10-31`|
+| `spent_date[eq]` | `date`    | Filtra despesas onde a data gasta é igual à especificada.                              | `?spent_date[eq]=2024-10-15`|
+| `spent_date[ne]` | `date`    | Filtra despesas onde a data gasta não é igual à especificada.                          | `?spent_date[ne]=2024-10-20`|
+
+
+# Feedback 📫
+Se você tiver algum feedback ou observação, sinta-se à vontade para entrar em contato pelo meu email: augustomatheus233@gmail.com.

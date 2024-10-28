@@ -17,8 +17,8 @@ return new class extends Migration {
             $table->string('category');
             $table->text('description')->nullable();
             $table->decimal('value', 10, 2);
-            $table->dateTime('date_spent')->nullable();
-            $table->timestamps(); 
+            $table->dateTime('spent_date')->nullable();
+            $table->timestamps();
         });
     }
 

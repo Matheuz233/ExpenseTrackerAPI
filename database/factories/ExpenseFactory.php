@@ -22,7 +22,7 @@ class ExpenseFactory extends Factory
             'category' => $this->faker->word,
             'description' => $this->faker->sentence,
             'value' => $this->faker->numberBetween(1, 1000),
-            'date_spent' => $this->faker->date(),
+            'spent_date' => $this->faker->date(),
         ];
     }
 }

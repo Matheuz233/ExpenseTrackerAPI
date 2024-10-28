@@ -14,9 +14,11 @@ class ExpenseController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        return ExpenseResource::collection(Expense::with('user')->get());
+        return (new Expense())->filter($request);
+        // return ExpenseResource::collection(Expense::where([['value', '>', '500']])->with('user')->get());
+        // return ExpenseResource::collection(Expense::with('user')->get());
     }
 
     /**
@@ -27,7 +29,7 @@ class ExpenseController extends Controller
         $validator = Validator::make($request->all(), [
             'user_id' => 'required',
             'category' => 'required',
-            'date_spent' => 'nullable|date',
+            'spent_date' => 'nullable|date',
             'description' => 'nullable',
             'value' => 'required|numeric|between:1,9999.99',
         ]);
@@ -61,7 +63,7 @@ class ExpenseController extends Controller
         $validator = Validator::make($request->all(), [
             'user_id' => 'required',
             'category' => 'required',
-            'date_spent' => 'nullable|date_format:Y-m-d H:i:s',
+            'spent_date' => 'nullable|date_format:Y-m-d H:i:s',
             'description' => 'nullable',
             'value' => 'required|numeric',
         ]);
@@ -79,7 +81,7 @@ class ExpenseController extends Controller
             'category' => $validated['category'],
             'description' => $validated['description'],
             'value' => $validated['value'],
-            'date_spent' => $validated['date_spent'] !== 0 ? $validated['date_spent'] : null,
+            'spent_date' => $validated['spent_date'] !== 0 ? $validated['spent_date'] : null,
         ]);
 
         if  ($updated) {
@@ -91,7 +93,7 @@ class ExpenseController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id) 
+    public function destroy(string $id)
     {
         $expense = Expense::find($id);
         $deleted = $expense->delete();

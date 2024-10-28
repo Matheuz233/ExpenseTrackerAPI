@@ -22,7 +22,7 @@ class ExpenseResource extends JsonResource
             'category' => $this->category,
             'description' => $this->description,
             'value' => 'R$ ' .number_format($this->value, 2, ',', '.'),
-            'date_spent' => $this->date_spent,
+            'spent_date' => $this->spent_date,
         ];
     }
 }
